@@ -1,0 +1,12 @@
+{
+    "PopoverItems": [{
+            "Title": "Open Document",
+            "OnPress": "/CreateClaims/Actions/Receipts/Receipts_OpenDocument.action"
+        },
+        {
+            "Title": "Delete",
+            "OnPress": "/CreateClaims/Rules/Receipts/Receipts_DeleteConfirmation.js"
+        }
+    ],
+    "_Type": "Action.Type.PopoverMenu"
+}

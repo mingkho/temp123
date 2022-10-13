@@ -1,0 +1,12 @@
+{
+    "PopoverItems": [{
+            "Title": "Add Receipts",
+            "OnPress": "/CreateClaims/Rules/Claims/NavToClaims_CreateReceipts.js"
+        },
+        {
+            "Title": "Delete",
+            "OnPress": "/CreateClaims/Rules/Claims/Claims_DeleteConfirmation.js"
+        }
+    ],
+    "_Type": "Action.Type.PopoverMenu"
+}

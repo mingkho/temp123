@@ -1,0 +1,18 @@
+{
+    "CreateLinks": [],
+    "OnFailure": "/CreateClaims/Actions/CreateEntityFailureMessage.action",
+    "OnSuccess": "/CreateClaims/Actions/CreateEntitySuccessMessage.action",
+    "Properties": {
+        "ReceiptNumber": "#Control:ReceiptNumber/#Value",
+        "ReceiptDate": "#Control:ReceiptDate/#Value",
+        "Filetype": "#Control:Filetype/#Value"
+    },
+    "Target": {
+        "EntitySet": "Receipts",
+        "Service": "/CreateClaims/Services/service1.service"
+    },
+    "ActionResult": {
+        "_Name": "create"
+    },
+    "_Type": "Action.Type.ODataService.CreateEntity"
+}

@@ -1,0 +1,8 @@
+{
+    "_Type": "Action.Type.ApplicationUpdate",
+    "ActionResult": {
+        "_Name": "Appupdate"
+    },
+    "OnFailure": "/CreateClaims/Actions/UpdateFailureMessage.action",
+    "OnSuccess": "/CreateClaims/Actions/UpdateSuccessMessage.action"
+}

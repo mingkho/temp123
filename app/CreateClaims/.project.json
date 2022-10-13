@@ -1,0 +1,76 @@
+{
+	"Credential": "cf",
+	"CF": {
+		"Target": "https://api.cf.sap.hana.ondemand.com",
+		"Organization": "c9a0a983-6740-4729-8861-9e90a2e9c2f2",
+		"Space": "076cd2ed-2f20-4c33-962c-42150b6a3a9f"
+	},
+	"MobileService": {
+		"Type": "standard",
+		"AdminAPI": "https://mobile-service-cockpit-api.cfapps.sap.hana.ondemand.com/cockpit/v1/org/c9a0a983-6740-4729-8861-9e90a2e9c2f2/space/076cd2ed-2f20-4c33-962c-42150b6a3a9f",
+		"AppId": "lcap.BenefitsApp.CreateClaims",
+		"Destination": [
+			"BenefitsAppService"
+		],
+		"Create": true,
+		"DestinationName": "BenefitsAppService",
+		"DestinationUrl": "https://lcap-qa-qa-BenefitsApp-srv.cfapps.sap.hana.ondemand.com/service/BenefitsApp",
+		"Uaa": "BenefitsApp-uaa"
+	},
+	"Onboarding": {
+		"Schema": "sapmobilesvcs",
+		"TimeZone": "UTC",
+		"URL": "sapmobilesvcs://?AppId=lcap.BenefitsApp.CreateClaims&ClientId=ac303d7b-c766-4cfa-b04a-016e935f2995&ServerUrl=https://lcap-qa-qa-lcap-benefitsapp-createclaims.cfapps.sap.hana.ondemand.com&SapCloudPlatformEndpoint=https://lcap-qa-qa-lcap-benefitsapp-createclaims.cfapps.sap.hana.ondemand.com&AuthorizationEndpointUrl=https://lcap-qa-qa-lcap-benefitsapp-createclaims.cfapps.sap.hana.ondemand.com/oauth2/api/v1/authorize&RedirectUrl=https://lcap-qa-qa-lcap-benefitsapp-createclaims.cfapps.sap.hana.ondemand.com&TokenUrl=https://lcap-qa-qa-lcap-benefitsapp-createclaims.cfapps.sap.hana.ondemand.com/oauth2/api/v1/token&multiUser=false"
+	},
+	"LCAP": {
+		"FullName": "BenefitsApp_CreateClaims",
+		"Service": [
+			{
+				"mdk": "CreateClaims/Services/service1.service",
+				"cap": {
+					"name": "BenefitsAppService",
+					"sourcePath": "srv/service.cds",
+					"path": "/service/BenefitsApp/",
+					"entryPath": "/service/BenefitsApp",
+					"destination": "BenefitsApp-app-srv",
+					"value": "0"
+				},
+				"links": [
+					{
+						"entity": "BenefitsAppService.ClaimTypes",
+						"files": [
+							"CreateClaims/Pages/Claims/Claims_Create.page"
+						]
+					},
+					{
+						"entity": "BenefitsAppService.Claims",
+						"files": [
+							"CreateClaims/Pages/Claims/Claims_Detail.page",
+							"CreateClaims/Pages/Claims/Claims_Edit.page",
+							"CreateClaims/Pages/Claims/Claims_List.page",
+							"CreateClaims/Actions/Claims/Claims_CreateEntity.action",
+							"CreateClaims/Actions/Claims/Claims_DeleteEntity.action",
+							"CreateClaims/Actions/Claims/Claims_UpdateEntity.action"
+						]
+					},
+					{
+						"entity": "BenefitsAppService.Receipts",
+						"files": [
+							"CreateClaims/Pages/Receipts/Receipts_Detail.page",
+							"CreateClaims/Pages/Receipts/Receipts_Edit.page",
+							"CreateClaims/Actions/Claims/Claims_CreateReceipts.action",
+							"CreateClaims/Actions/Receipts/Receipts_CreateEntity.action",
+							"CreateClaims/Actions/Receipts/Receipts_DeleteEntity.action",
+							"CreateClaims/Actions/Receipts/Receipts_UpdateEntity.action",
+							"CreateClaims/Actions/Receipts/Receipts_UploadStream.action"
+						]
+					}
+				]
+			}
+		],
+		"sourceTemplate": {
+			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+			"version": "1.40.12"
+		}
+	}
+}

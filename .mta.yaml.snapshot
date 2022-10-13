@@ -1,0 +1,197 @@
+_schema-version: '3.1'
+ID: BenefitsApp
+version: 1.0.0
+description: A simple CAP project.
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - rm -rf build/ui-deployer
+        - mkdir -p build/ui-deployer
+        - rm -rf build/dist
+        - mkdir -p build/dist
+    - builder: custom
+      commands:
+        - npm install --production
+        - >-
+          bash -c "cds -v | grep 'cds-dk' || npm i --production --no-save
+          @sap/cds-dk @sap/mdk-tools"
+        - bash -c "export PATH=$PATH:$(pwd)/node_modules/.bin"
+        - cds build --production
+modules:
+  - name: BenefitsApp-CreateClaims
+    type: html5
+    path: app/CreateClaims
+    build-parameters:
+      builder: custom
+      commands:
+        - mdk build --target module --ui5 --forceUpdate
+        - bash -c "cd Web/MDKModule && rm -rf .npmrc && npm install"
+        - bash -c "cd Web/MDKModule && npm run build"
+        - >-
+          bash -c "mv Web/MDKModule/MDKModule-content.zip
+          ../../build/dist/CreateClaims.zip"
+        - rm -rf Web/MDKModule/dist
+      _artifactName: CreateClaims.zip
+      supported-platforms: []
+      build-result: ../../build/dist
+  - name: BenefitsApp-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm
+      ignore:
+        - node_modules
+        - package-lock.json
+    requires:
+      - name: BenefitsApp-service-uaa
+      - name: BenefitsApp-service-db
+  - name: BenefitsApp-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      memory: 256MB
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    build-parameters:
+      builder: npm
+      ignore:
+        - node_modules
+        - package-lock.json
+    requires:
+      - name: BenefitsApp-service-uaa
+      - name: BenefitsApp-service-db
+      - name: BenefitsApp-service-destination
+      - name: BenefitsApp-service-metadata
+      - name: BenefitsApp-service-connectivity
+      - name: BenefitsApp-service-logs
+  - name: BenefitsApp-aux-destinations
+    type: com.sap.application.content
+    parameters:
+      content:
+        subaccount:
+          existing_destinations_policy: update
+          destinations:
+            - Authentication: OAuth2UserTokenExchange
+              Name: BenefitsApp-service-uaa
+              ServiceInstanceName: BenefitsApp-uaa
+              ServiceKeyName: BenefitsApp-uaa-key
+              sap.cloud.service: lcap.BenefitsApp
+            - Authentication: OAuth2UserTokenExchange
+              Name: BenefitsApp-app-srv
+              TokenServiceInstanceName: BenefitsApp-uaa
+              TokenServiceKeyName: BenefitsApp-uaa-key
+              URL: ~{srv-api/srv-url}
+              sap.cloud.service: lcap.BenefitsApp
+            - Name: BenefitsApp-service-html5-apps-repo-host
+              ServiceInstanceName: BenefitsApp-html5-apps-repo-host
+              ServiceKeyName: BenefitsApp-html5-apps-repo-host-key
+              sap.cloud.service: lcap.BenefitsApp
+    build-parameters:
+      no-source: true
+    requires:
+      - name: BenefitsApp-service-uaa
+        parameters:
+          service-key:
+            name: BenefitsApp-uaa-key
+      - name: srv-api
+      - name: BenefitsApp-service-html5-apps-repo-host
+        parameters:
+          service-key:
+            name: BenefitsApp-html5-apps-repo-host-key
+      - name: BenefitsApp-service-destination
+        parameters:
+          content-target: true
+  - name: BenefitsApp-launchpad
+    type: html5
+    path: build/launchpad
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - >-
+          npx -p @ui5/cli ui5 build --dest dist
+          --include-task=generateManifestBundle
+          --include-task=generateCachebusterInfo
+        - bash -c "cd dist && npx bestzip ../../../build/dist/launchpad.zip *"
+        - rm -rf dist
+      _artifactName: launchpad.zip
+      supported-platforms: []
+      build-result: ../../build/dist
+  - name: BenefitsApp-aux-ui-deployer
+    type: com.sap.application.content
+    path: build/ui-deployer
+    build-parameters:
+      build-result: resources
+      requires:
+        - name: BenefitsApp-CreateClaims
+          artifacts:
+            - CreateClaims.zip
+          target-path: resources
+        - name: BenefitsApp-launchpad
+          artifacts:
+            - launchpad.zip
+          target-path: resources
+    requires:
+      - name: BenefitsApp-service-html5-apps-repo-host
+        parameters:
+          content-target: true
+resources:
+  - type: org.cloudfoundry.managed-service
+    name: BenefitsApp-service-uaa
+    parameters:
+      service: xsuaa
+      service-plan: application
+      service-name: BenefitsApp-uaa
+      path: xs-security.json
+      config:
+        xsappname: BenefitsApp-${space}
+        role-collections: []
+  - type: org.cloudfoundry.managed-service
+    name: BenefitsApp-service-db
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+      service-name: BenefitsApp-db
+  - type: org.cloudfoundry.managed-service
+    name: BenefitsApp-service-destination
+    parameters:
+      service: destination
+      service-plan: lite
+      service-name: BenefitsApp-destination
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.0
+  - type: org.cloudfoundry.user-provided-service
+    name: BenefitsApp-service-metadata
+    parameters:
+      service: metadata
+      service-plan: standard
+      service-name: BenefitsApp-metadata
+      config:
+        default-domain: ${default-domain}
+  - type: org.cloudfoundry.managed-service
+    name: BenefitsApp-service-connectivity
+    parameters:
+      service: connectivity
+      service-plan: lite
+      service-name: BenefitsApp-connectivity
+  - type: org.cloudfoundry.managed-service
+    name: BenefitsApp-service-logs
+    parameters:
+      service: application-logs
+      service-plan: lite
+      service-name: BenefitsApp-logs
+  - type: org.cloudfoundry.managed-service
+    name: BenefitsApp-service-html5-apps-repo-host
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+      service-name: BenefitsApp-html5-apps-repo-host

@@ -1,0 +1,116 @@
+{
+	"Caption": "Claims Detail",
+	"DesignTimeTarget": {
+		"Service": "/CreateClaims/Services/service1.service",
+		"EntitySet": "Claims",
+		"QueryOptions": ""
+	},
+	"ActionBar": {
+		"Items": [
+			{
+				"OnPress": "/CreateClaims/Rules/Claims/NavToClaims_Edit.js",
+				"Position": "Right",
+				"SystemItem": "Edit"
+			},
+			{
+				"OnPress": "/CreateClaims/Actions/Claims/Claims_DetailPopover.action",
+				"Position": "Right",
+				"Caption": "More"
+			}
+		]
+	},
+	"Controls": [
+		{
+			"Sections": [
+				{
+					"ObjectHeader": {
+						"Tags": [],
+						"DetailImage": "",
+						"HeadlineText": "{ClaimDate}",
+						"Subhead": "{Provider}",
+						"BodyText": "",
+						"Footnote": "{Comment}",
+						"Description": "{Amount}",
+						"StatusText": "{claimType_ID}",
+						"StatusImage": "",
+						"SubstatusImage": "",
+						"SubstatusText": ""
+					},
+					"_Type": "Section.Type.ObjectHeader"
+				},
+				{
+					"KeyAndValues": [
+						{
+							"KeyName": "ClaimDate",
+							"Value": "{ClaimDate}"
+						},
+						{
+							"KeyName": "Provider",
+							"Value": "{Provider}"
+						},
+						{
+							"KeyName": "Amount",
+							"Value": "{Amount}"
+						},
+						{
+							"KeyName": "Comment",
+							"Value": "{Comment}"
+						},
+						{
+							"KeyName": "claimType_ID",
+							"Value": "{claimType_ID}"
+						}
+					],
+					"Layout": {
+						"NumberOfColumns": 2
+					},
+					"MaxItemCount": 1,
+					"_Name": "SectionKeyValue0",
+					"_Type": "Section.Type.KeyValue"
+				},
+				{
+					"Header": {
+						"Caption": "ClaimReceipts"
+					},
+					"ObjectCell": {
+						"AccessoryType": "disclosureIndicator",
+						"Description": "{Filetype}",
+						"AvatarStack": {
+							"Avatars": [
+								{
+									"Image": "/CreateClaims/Services/service1.service/{@odata.readLink}/Attachment"
+								}
+							],
+							"ImageIsCircular": false
+						},
+						"Icons": [],
+						"StatusImage": "",
+						"Title": "{ReceiptNumber}",
+						"Footnote": "",
+						"PreserveIconStackSpacing": false,
+						"StatusText": "",
+						"Subhead": "{ReceiptDate}",
+						"SubstatusText": "",
+						"OnPress": "/CreateClaims/Actions/Receipts/NavToReceipts_Detail.action"
+					},
+					"EmptySection": {
+						"Caption": "No record found!"
+					},
+					"Target": {
+						"EntitySet": "{#Property:@odata.readLink}/ClaimReceipts",
+						"Service": "/CreateClaims/Services/service1.service"
+					},
+					"_Type": "Section.Type.ObjectTable"
+				}
+			],
+			"DataSubscriptions": [
+				"Receipts"
+			],
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable"
+		}
+	],
+	"_Type": "Page",
+	"_Name": "Claims_Detail",
+	"PrefersLargeCaption": true
+}

@@ -1,0 +1,57 @@
+{
+	"Caption": "Update Receipts Detail",
+	"DesignTimeTarget": {
+		"Service": "/CreateClaims/Services/service1.service",
+		"EntitySet": "Receipts",
+		"QueryOptions": ""
+	},
+	"ActionBar": {
+		"Items": [
+			{
+				"Position": "Left",
+				"Caption": "Cancel",
+				"OnPress": "/CreateClaims/Rules/Receipts/Receipts_Cancel.js"
+			},
+			{
+				"Position": "Right",
+				"SystemItem": "Save",
+				"OnPress": "/CreateClaims/Rules/Receipts/Receipts_UpdateEntity.js"
+			}
+		]
+	},
+	"Controls": [
+		{
+			"Sections": [
+				{
+					"Caption": "",
+					"Controls": [
+						{
+							"Caption": "ReceiptNumber",
+							"_Name": "ReceiptNumber",
+							"Value": "{ReceiptNumber}",
+							"_Type": "Control.Type.FormCell.SimpleProperty"
+						},
+						{
+							"Mode": "Date",
+							"_Name": "ReceiptDate",
+							"Value": "{ReceiptDate}",
+							"Caption": "ReceiptDate",
+							"_Type": "Control.Type.FormCell.DatePicker"
+						},
+						{
+							"Caption": "Filetype",
+							"_Name": "Filetype",
+							"Value": "{Filetype}",
+							"_Type": "Control.Type.FormCell.SimpleProperty"
+						}
+					]
+				}
+			],
+			"_Name": "PageOneFormCell",
+			"_Type": "Control.Type.FormCellContainer"
+		}
+	],
+	"_Type": "Page",
+	"_Name": "Receipts_Edit",
+	"PrefersLargeCaption": true
+}

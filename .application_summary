@@ -1,0 +1,5 @@
+{
+  "ProjectOverviewURL": "https://lcap-qa.launchpad.cfapps.sap.hana.ondemand.com/lcapBenefitsApp.BenefitsAppLaunchpad-1.0.0",
+  "DeployedUTCTime": "2022-09-15T06:10:35.110Z",
+  "ApplicationLogURL": "https://logs.cf.sap.hana.ondemand.com/app/dashboards#/view/Overview?_g=(filters:!((query:(match_phrase:(component_name:BenefitsApp-srv)))))"
+}

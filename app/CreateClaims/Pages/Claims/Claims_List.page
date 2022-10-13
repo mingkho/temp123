@@ -1,0 +1,101 @@
+{
+	"Controls": [
+		{
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable",
+			"Sections": [
+				{
+					"Header": {
+						"_Name": "SectionHeader0",
+						"UseTopPadding": false
+					},
+					"_Type": "Section.Type.ObjectTable",
+					"Target": {
+						"EntitySet": "Claims",
+						"Service": "/CreateClaims/Services/service1.service",
+						"QueryOptions": ""
+					},
+					"_Name": "SectionObjectTable0",
+					"EmptySection": {
+						"Caption": "No record found!",
+						"FooterVisible": false
+					},
+					"ObjectCell": {
+						"ContextMenu": {
+							"Items": [
+							],
+							"PerformFirstActionWithFullSwipe": true
+						},
+						"Title": "{ClaimDate}",
+						"Subhead": "{Provider}",
+						"Footnote": "{Comment}",
+						"Description": "{Amount}",
+						"StatusText": "{claimType_ID}",
+						"PreserveIconStackSpacing": false,
+						"AccessoryType": "disclosureIndicator",
+						"Tags": [
+						],
+						"AvatarStack": {
+							"Avatars": [
+								{
+									"Image": ""
+								}
+							],
+							"ImageIsCircular": false
+						},
+						"AvatarGrid": {
+							"Avatars": [
+							]
+						},
+						"OnPress": "/CreateClaims/Actions/Claims/NavToClaims_Detail.action"
+					},
+					"Search": {
+						"Enabled": true,
+						"Placeholder": "Item Search",
+						"BarcodeScanner": true,
+						"Delay": 500,
+						"MinimumCharacterThreshold": 3
+					},
+					"DataPaging": {
+						"ShowLoadingIndicator": true,
+						"LoadingIndicatorText": "Loading more items, please wait..."
+					}
+				}
+			],
+			"LoadingIndicator": {
+				"Enabled": true,
+				"Text": "Loading, please wait..."
+			}
+		}
+	],
+	"_Type": "Page",
+	"_Name": "Claims_List",
+	"Caption": "Claims",
+	"PrefersLargeCaption": true,
+	"ActionBar": {
+		"Items": [
+			{
+				"_Name": "ActionBarItem0",
+				"Caption": "",
+				"SystemItem": "Add",
+				"Position": "Right",
+				"IsIconCircular": false,
+				"OnPress": "/CreateClaims/Actions/Claims/NavToClaims_Create.action"
+			}
+		],
+		"_Name": "ActionBar1"
+	},
+	"ToolBar": {
+		"Items": [
+			{
+				"_Type": "Control.Type.ToolbarItem",
+				"_Name": "LogoutToolbarItem",
+				"Caption": "Logout",
+				"Enabled": true,
+				"Visible": true,
+				"Clickable": true,
+				"OnPress": "/CreateClaims/Actions/Logout.action"
+			}
+		]
+	}
+}

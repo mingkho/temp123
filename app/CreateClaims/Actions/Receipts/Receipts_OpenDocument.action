@@ -1,0 +1,5 @@
+{
+    "_Type": "Action.Type.OpenDocument",
+    "Path": "/CreateClaims/Services/service1.service/{@odata.readLink}/Attachment",
+    "MimeType": "{Filetype}"
+}

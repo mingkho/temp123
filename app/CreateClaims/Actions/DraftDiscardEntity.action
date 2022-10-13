@@ -1,0 +1,18 @@
+{
+    "_Type": "Action.Type.ODataService.DraftEnabled.Discard",
+    "Target": {
+        "Service": "/CreateClaims/Services/service1.service",
+        "ReadLink": "{@odata.readLink}"
+    },
+    "ShowActivityIndicator": true,
+    "ActionResult": {
+        "_Name": "update"
+    },
+    "OnSuccess": {
+        "Name": "/CreateClaims/Actions/UpdateEntitySuccessMessage.action",
+        "Properties": {
+            "Message": "Draft Discarded"
+        }
+    },
+    "OnFailure": "/CreateClaims/Actions/UpdateEntityFailureMessage.action"
+}
