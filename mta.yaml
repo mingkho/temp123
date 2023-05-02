@@ -28,7 +28,7 @@ modules:
     build-parameters:
       builder: custom
       commands:
-        - mdk build --target module --ui5 --forceUpdate
+        - npx -p @sap/mdk-tools mdk build --target module --ui5 --forceUpdate
         - bash -c "cd Web/MDKModule && rm -rf .npmrc && npm install"
         - bash -c "cd Web/MDKModule && npm run build"
         - >-
@@ -117,7 +117,7 @@ modules:
       commands:
         - npm install
         - >-
-          npx -p @ui5/cli ui5 build --dest dist
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
           --include-task=generateManifestBundle
           --include-task=generateCachebusterInfo
         - bash -c "cd dist && npx bestzip ../../../build/dist/launchpad.zip *"

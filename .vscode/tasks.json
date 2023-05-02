@@ -7,7 +7,9 @@
       "type": "shell",
       "label": "cds watch",
       "command": "cds",
-      "args": ["watch"],
+      "args": [
+        "watch"
+      ],
       "group": {
         "kind": "build",
         "isDefault": true
@@ -18,8 +20,31 @@
       "type": "shell",
       "label": "cds run",
       "command": "cds",
-      "args": ["run", "--with-mocks", "--in-memory?"],
+      "args": [
+        "run",
+        "--with-mocks",
+        "--in-memory?"
+      ],
       "problemMatcher": []
+    },
+    {
+      "type": "dpt.ptdeploy",
+      "label": "Deploy BenefitsAppFull",
+      "taskType": "Deploy"
+    },
+    {
+      "type": "deploy",
+      "label": "Deploy MTA: BenefitsAppFull - No Extension - CF QA",
+      "taskType": "Deploy",
+      "mtarPath": "mta_archives/*.mtar",
+      "cfTarget": "lcap_int-qa",
+      "cfEndpoint": "https://api.cf.sap.hana.ondemand.com",
+      "cfOrg": "LCAP_int",
+      "cfSpace": "QA",
+      "extensions": [],
+      "dependsOn": [
+        "Build MTA: BenefitsAppFull - PT"
+      ]
     }
   ]
 }
